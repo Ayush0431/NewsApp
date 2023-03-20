@@ -10,8 +10,37 @@ export class News extends Component {
            loading :false
     }
    }
+   handlePrevClick = async ()=>{
+      
+    let url =`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=13292e8973c042f8988b7aaa93141cfc&page=${this.state.page -1}`;
+    let data= await fetch(url);
+    let parsedData =await data.json()
+    console.log(parsedData);
+    this.setState({
+      page:this.state.page - 1,
+      articles: parsedData.articles
+    })
+     console.log("Previous")
+   }
+   handleNextClick = async ()=>{
+    
+    console.log("Next")
+    let url =`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=13292e8973c042f8988b7aaa93141cfc&page=${this.state.page +1}`;
+    let data= await fetch(url);
+    let parsedData =await data.json()
+    console.log(parsedData);
+    this.setState({
+      page:this.state.page + 1,
+      articles: parsedData.articles
+    })
+   }
+
+
+
+
+
   async componentDidMount(){
-    let url ="https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=13292e8973c042f8988b7aaa93141cfc"
+    let url ="https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=13292e8973c042f8988b7aaa93141cfc&page=1"
     let data= await fetch(url);
     let parsedData =await data.json()
     console.log(parsedData);
@@ -33,7 +62,10 @@ export class News extends Component {
         </div>
         </div>
         })}
-        
+        <div className="container d-flex justify-content-between">
+        <button disabled={this.state.page<=1} type="button" class="btn btn-dark" onClick={this.handlePrevClick}>&larr;Previous  </button>
+        <button type="button" class="btn btn-dark" onClick={this.handleNextClick}>Next &rarr;</button>
+        </div>
       </div>
     )
   }
