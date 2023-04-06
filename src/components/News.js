@@ -22,8 +22,17 @@ export class News extends Component {
            page :1
     }
    }
+   async updateNews(){
+    const url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=13292e8973c042f8988b7aaa93141cfc&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+    this.setState({loading:true});
+    let data= await fetch(url);
+    let parsedData =await data.json()
+    console.log(parsedData);
+    this.setState({articles: parsedData.articles, totalResults:parsedData.totalResults,loading:false})
+  
+   }
    async componentDidMount(){
-    let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=13292e8973c042f8988b7aaa93141cfc&page=1&pageSize=${this.props.pageSize}`
+    let url =`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=13292e8973c042f8988b7aaa93141cfc&page=1&pageSize=${this.props.pageSize}`;
     this.setState({loading:true});
     let data= await fetch(url);
     let parsedData =await data.json()
