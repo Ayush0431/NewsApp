@@ -53,6 +53,9 @@ export class News extends Component {
     //     articles: parsedData.articles,
     //     loading:false
     // })
+    //mounting == birth of your component 
+    //update == gorwth of your component
+    //unmount == death of your component
     this.setState({page :this.state.page - 1});
     this.updateNews();
 }
